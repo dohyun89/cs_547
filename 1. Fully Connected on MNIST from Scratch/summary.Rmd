@@ -1,0 +1,16 @@
+---
+title: "CS 547 / IE 534 Homework 1"
+author: "Do Hyun Hwang"
+date: "September 4, 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align='center')
+options(width = 90)
+```
+
+Overview
+
+In this assignment, I implemented fully connected single layer neural network with 64 nodes to predict the correct handwritten digits from MNIST dataset.  The dataset is comprised of 80,000 scanned handwritten digits.  Out of 80,000 scanned images, 60,000 were dedicated to the training set and the rest of the 20,000 were dedicated to the testing set.  I was able consistently achieve around 98% test accuracy. The code performs forward propagation, backward propagation, as well as the stochastic gradient descent to update parameters.  Sigmoid function was used as the actvation function for the model.  After forward propgation through the first layer, softmax function was used to provide probabilistic representation for the 10 different classes per each observation.  For each observation, the class with the highest probabiliy became our prediction. 
