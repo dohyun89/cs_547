@@ -4,7 +4,7 @@ import torch.nn.functional as F
 
 class generator(nn.Module):
     def __init__(self):
-    #     super(generator, self).__init__()
+         super(generator, self).__init__()
     #     self.fc1 = nn.Linear(in_features = 100, out_features = 196*4*4)
     #     self.bnf = nn.BatchNorm1d(196*4*4)
 
