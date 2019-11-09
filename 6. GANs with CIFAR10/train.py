@@ -34,7 +34,11 @@ for epoch in range(num_epoch):
     epoch_accuracy = 0
     epoch_loss = 0
     batch_counter = 0
-    
+    for group in optimizer.param_groups:
+        for p in group['params']:
+            state = optimizer.state[p]
+            if('step' in state and state['step']>=1024):
+                state['step'] = 1000
 
     if(epoch==50):
         for param_group in optimizer.param_groups:
@@ -42,20 +46,14 @@ for epoch in range(num_epoch):
     if(epoch==75):
         for param_group in optimizer.param_groups:
             param_group['lr'] = learning_rate/100.0
-    
+    start = time.time()
     for batch_id, (data, label) in enumerate(trainloader):
-        start = time.time()
+        
         data, label = Variable(data).to(device), Variable(label).to(device)
         __, output = aD(data)
         loss = criterion(output, label)
         optimizer.zero_grad()
         loss.backward()
-        if(epoch>6):
-            for group in optimizer.param_groups:
-                for p in group['params']:
-                    state = optimizer.state[p]
-                    if(state['step']>=1024):
-                        state['step'] = 1000
         optimizer.step()
 
         pred = torch.max(output,1)[1]
@@ -77,10 +75,10 @@ for epoch in range(num_epoch):
         epoch_loss = 0
         batch_counter = 0
         print("\nTESTING\n")
-
+        start = time.time()
         with torch.no_grad():
             for batch_id, (data, label) in enumerate(testloader):
-                start = time.time()
+                
                 data, label = Variable(data).to(device), Variable(label).to(device)
                 __, output = aD(data)
                 loss = criterion(output, label)
