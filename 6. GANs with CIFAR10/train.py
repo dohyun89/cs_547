@@ -69,7 +69,7 @@ for epoch in range(num_epoch):
     train_sum[1].append(epoch_accuracy/batch_counter)
     train_sum[2].append(epoch_loss/batch_counter)
 
-    print("\nEpoch: {} |Training Accuracy: {} |Trainig Loss: {} | Time: {}".format(train_sum[0][-1], train_sum[1][-1], train_sum[2][-1], 1/60*(end-time))
+    print("\nEpoch: {} |Training Accuracy: {} |Trainig Loss: {} | Time: {}".format(train_sum[0][-1], train_sum[1][-1], train_sum[2][-1], 1/60*(end-time)))
     
     if (epoch+1)%5 == 0:
         aD.eval()
