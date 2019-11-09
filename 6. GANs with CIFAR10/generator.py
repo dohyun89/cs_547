@@ -6,7 +6,7 @@ class generator(nn.Module):
     def __init__(self):
         super(generator, self).__init__()
         self.fc1 = nn.Linear(in_features = 100, out_features = 196*4*4)
-        self.bnf = nn.BatchNorm2d(196*4*4)
+        self.bnf = nn.BatchNorm2d(196)
 
         self.conv1 = nn.ConvTranspose2d(in_channels = 196, out_channels = 196, kernel_size = 4, padding = 1, stride = 2)
         self.bn1 = nn.BatchNorm2d(196)
