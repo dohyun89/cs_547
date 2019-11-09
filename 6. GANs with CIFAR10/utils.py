@@ -6,11 +6,11 @@ def dataloader(root, train_batch_size, test_batch_size, num_workers):
 
     transform_train = transforms.Compose([
         transforms.RandomResizedCrop(32, scale=(0.7, 1.0), ratio=(1.0,1.0)),
-        # transforms.ColorJitter(
-        #         brightness=0.1*torch.randn(1),
-        #         contrast=0.1*torch.randn(1),
-        #         saturation=0.1*torch.randn(1),
-        #         hue=0.1*torch.randn(1)),
+        transforms.ColorJitter(
+                brightness=0.1*torch.randn(1),
+                contrast=0.1*torch.randn(1),
+                saturation=0.1*torch.randn(1),
+                hue=0.1*torch.randn(1)),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),

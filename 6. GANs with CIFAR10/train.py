@@ -18,11 +18,11 @@ trainloader, testloader = dataloader(root = root,
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-model = discriminator()
-model = model.to(device)
+aG = discriminator()
+aG = aG.to(device)
 
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
+optimizer = torch.optim.Adam(aG.parameters(), lr=0.0001)
 
 
 train_sum = [ [], [] , []]
@@ -30,7 +30,7 @@ test_sum = [ [], [], []]
 
 
 for epoch in range(num_epoch):
-    model.train()
+    aG.train()
     epoch_accuracy = 0
     epoch_loss = 0
     batch_counter = 0
@@ -44,7 +44,7 @@ for epoch in range(num_epoch):
     
     for batch_id, (data, label) in enumerate(trainloader):
         data, label = Variable(data).to(device), Variable(label).to(device)
-        __, output = model(data)
+        __, output = aG(data)
         loss = criterion(output, label)
         optimizer.zero_grad()
         loss.backward()
@@ -69,7 +69,7 @@ for epoch in range(num_epoch):
     print("\nEpoch: {} |Training Accuracy: {} |Trainig Loss: {}".format(train_sum[0][-1], train_sum[1][-1], train_sum[2][-1]))
     
     if (epoch+1)%5 == 0:
-        model.eval()
+        aG.eval()
         epoch_accuracy = 0
         epoch_loss = 0
         batch_counter = 0
@@ -77,7 +77,7 @@ for epoch in range(num_epoch):
         with torch.no_grad():
             for batch_id, (data, label) in enumerate(testloader):
                 data, label = Variable(data).to(device), Variable(label).to(device)
-                __, output = model(data)
+                __, output = aG(data)
                 loss = criterion(output, label)
                 pred = torch.max(output,1)[1]
 
@@ -93,5 +93,5 @@ for epoch in range(num_epoch):
         print("\nEpoch: {} |Testing Accuracy: {} |Testing Loss: {}".format(test_sum[0][-1], test_sum[1][-1], test_sum[2][-1]))
 
         torch.cuda.empty_cache()
-        torch.save(model,'cifar10.model')
+        torch.save(aG,'cifar10.model')
 
