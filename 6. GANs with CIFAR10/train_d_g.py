@@ -13,6 +13,7 @@ num_epoch = 200
 gen_train = 1
 n_z = 100
 n_classes = 10
+load_models = True
 
 trainloader, testloader = dataloader(root = root, 
                                     train_batch_size= batch_size,
@@ -20,12 +21,19 @@ trainloader, testloader = dataloader(root = root,
                                     num_workers = num_workers)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+if load_models == True:
+    aD = torch.load(tempD.model)
+    aD = aD.to(device)
 
-aD = discriminator()
-aD = aD.to(device)
+    aG = torch.load(tempG.model)
+    aG = aD.to(device)
 
-aG = generator()
-aG = aG.to(device)
+else:
+    aD = discriminator()
+    aD = aD.to(device)
+
+    aG = generator()
+    aG = aG.to(device)
 
 optimizer_g = torch.optim.Adam(aG.parameters(), lr=0.0001, betas=(0,0.9))
 optimizer_d = torch.optim.Adam(aD.parameters(), lr=0.0001, betas=(0,0.9))
@@ -51,7 +59,19 @@ loss5 = []
 acc1 = []
 start_time = time.time()
 # Train the model
-for epoch in range(0,num_epoch):
+for epoch in range(16,num_epoch):
+    for group in optimizer_d.param_groups:
+        for p in group['params']:
+            state = optimizer_d.state[p]
+            if('step' in state and state['step']>=1024):
+                state['step'] = 1000
+
+    for group in optimizer_g.param_groups:
+        for p in group['params']:
+            state = optimizer_g.state[p]
+            if('step' in state and state['step']>=1024):
+                state['step'] = 1000
+
     aG.train()
     aD.train()
     for batch_idx, (X_train_batch, Y_train_batch) in enumerate(trainloader):
