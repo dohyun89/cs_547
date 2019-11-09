@@ -1,4 +1,5 @@
 import torch
+import torch.autograd as autograd
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 
