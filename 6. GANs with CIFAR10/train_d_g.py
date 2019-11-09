@@ -9,7 +9,7 @@ import numpy as np
 root = './cifar10'
 batch_size = 128
 num_workers = 8
-num_epoch = 400
+num_epoch = 200
 gen_train = 1
 n_z = 100
 n_classes = 10
