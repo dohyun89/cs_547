@@ -5,7 +5,7 @@ import torch.nn.functional as F
 class generator(nn.Module):
     def __init__(self):
     
-        super(Generator, self).__init__()
+        super(generator, self).__init__()
 
         #Input: N x 100
         self.fc1 = nn.Linear(100, 196 * 4 * 4)
