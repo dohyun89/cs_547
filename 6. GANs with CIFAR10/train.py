@@ -8,7 +8,6 @@ root = './cifar10'
 batch_size = 128
 num_workers = 8
 learning_rate = 0.0001
-
 num_epoch = 100
 
 
@@ -70,7 +69,7 @@ for epoch in range(num_epoch):
     train_sum[1].append(epoch_accuracy/batch_counter)
     train_sum[2].append(epoch_loss/batch_counter)
 
-    print("\nEpoch: {} |Training Accuracy: {} |Trainig Loss: {} | Time: {}".format(train_sum[0][-1], train_sum[1][-1], train_sum[2][-1]), 1/60*(end-time))
+    print("\nEpoch: {} |Training Accuracy: {} |Trainig Loss: {} | Time: {}".format(train_sum[0][-1], train_sum[1][-1], train_sum[2][-1], 1/60*(end-time))
     
     if (epoch+1)%5 == 0:
         aD.eval()
@@ -97,7 +96,7 @@ for epoch in range(num_epoch):
         test_sum[1].append(epoch_accuracy/batch_counter)
         test_sum[2].append(epoch_loss/batch_counter)
 
-        print("\nEpoch: {} |Testing Accuracy: {} |Testing Loss: {} |Time: {}".format(test_sum[0][-1], test_sum[1][-1], test_sum[2][-1]), 1/60*(end-start))
+        print("\nEpoch: {} |Testing Accuracy: {} |Testing Loss: {} |Time: {}".format(test_sum[0][-1], test_sum[1][-1], test_sum[2][-1], 1/60*(end-start))
 
         torch.cuda.empty_cache()
         torch.save(aD,'cifar10.model')
