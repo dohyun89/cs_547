@@ -7,7 +7,6 @@ import time
 root = './cifar10'
 batch_size = 128
 num_workers = 8
-learning_rate = 0.0001
 num_epoch = 100
 
 

@@ -48,6 +48,6 @@ class generator(nn.Module):
         x = self.bn6(x)
         x = F.relu(self.conv7(x))
         x = self.bn7(x)
-        x = F.relu(self.conv8(x))
+        x = F.tanh(self.conv8(x))
 
         return x
