@@ -95,6 +95,7 @@ class generator(nn.Module):
 
         x = self.fc1(x)
         x = x.reshape(-1, 196, 4, 4)
+        print(x.shape)
 
         x = self.conv1(x)
         x = self.bn1(x)
