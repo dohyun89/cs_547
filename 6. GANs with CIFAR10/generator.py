@@ -31,7 +31,7 @@ class generator(nn.Module):
 
         self.conv8 = nn.Conv2d(in_channels = 196, out_channels = 196, kernel_size = 3, padding = 1, stride = 1)
     def forward(self,x):
-        x = F.relu(self.fc1(x))
+        x = self.fc1(x)
         x = self.bnf(x)
         x = x.view(-1, 196, 4, 4)
         x = F.relu(self.conv1(x))
