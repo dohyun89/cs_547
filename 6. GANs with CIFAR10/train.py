@@ -96,7 +96,7 @@ for epoch in range(num_epoch):
         test_sum[1].append(epoch_accuracy/batch_counter)
         test_sum[2].append(epoch_loss/batch_counter)
 
-        print("\nEpoch: {} |Testing Accuracy: {} |Testing Loss: {} |Time: {}".format(test_sum[0][-1], test_sum[1][-1], test_sum[2][-1], 1/60*(end-start))
+        print("\nEpoch: {} |Testing Accuracy: {} |Testing Loss: {} |Time: {}".format(test_sum[0][-1], test_sum[1][-1], test_sum[2][-1], 1/60*(end-start)))
 
         torch.cuda.empty_cache()
         torch.save(aD,'cifar10.model')
