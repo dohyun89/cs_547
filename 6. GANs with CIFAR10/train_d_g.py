@@ -22,10 +22,10 @@ trainloader, testloader = dataloader(root = root,
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 if load_models == True:
-    aD = torch.load(tempD.model)
+    aD = torch.load('tempD.model')
     aD = aD.to(device)
 
-    aG = torch.load(tempG.model)
+    aG = torch.load('tempG.model')
     aG = aD.to(device)
 
 else:
