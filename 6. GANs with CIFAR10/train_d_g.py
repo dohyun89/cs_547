@@ -136,7 +136,7 @@ for epoch in range(0,num_epoch):
     loss5.append(disc_fake_class.item())
     acc1.append(accuracy)
     if((batch_idx%50)==0):
-        print(epoch, batch_idx, "%.2f" % np.mean(loss1), 
+        print("Training\n Epoch:",epoch, "Batch:",batch_idx, "%.2f" % np.mean(loss1), 
                                 "%.2f" % np.mean(loss2), 
                                 "%.2f" % np.mean(loss3), 
                                 "%.2f" % np.mean(loss4), 
