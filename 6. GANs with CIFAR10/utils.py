@@ -32,7 +32,7 @@ def dataloader(root, train_batch_size, test_batch_size, num_workers):
     return trainloader, testloader
 
 
-def calc_gradient_penalty(netD, real_data, fake_data):
+def calc_gradient_penalty(batch_size, netD, real_data, fake_data):
     DIM = 32
     LAMBDA = 10
     alpha = torch.rand(batch_size, 1)

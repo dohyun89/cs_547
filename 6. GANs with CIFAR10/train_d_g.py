@@ -122,7 +122,7 @@ for epoch in range(0,num_epoch):
         disc_real_source = disc_real_source.mean()
         disc_real_class = criterion(disc_real_class, real_label)
 
-        gradient_penalty = calc_gradient_penalty(aD,real_data,fake_data)
+        gradient_penalty = calc_gradient_penalty(batch_size, aD,real_data,fake_data)
 
         disc_cost = disc_fake_source - disc_real_source + disc_real_class + disc_fake_class + gradient_penalty
         disc_cost.backward()
