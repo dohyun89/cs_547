@@ -13,7 +13,7 @@ num_epoch = 200
 gen_train = 1
 n_z = 100
 n_classes = 10
-load_models = True
+load_models = False
 
 trainloader, testloader = dataloader(root = root, 
                                     train_batch_size= batch_size,
