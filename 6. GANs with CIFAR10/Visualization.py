@@ -28,7 +28,7 @@ testset = datasets.CIFAR10(root = './cifar10', train = False, download = False, 
 testloader = torch.utils.data.DataLoader(testset, batch_size = batch_size, shuffle = False, num_workers = 8)
 testloader = enumerate(testloader)
 
-model = torch.load('cifar10.model', map_location =torch.device('cpu'))
+model = torch.load('cifar10.model')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = model.to(device)
 model.eval()
