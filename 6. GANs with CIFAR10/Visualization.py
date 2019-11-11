@@ -71,7 +71,7 @@ gradient_image = gradients.data.cpu().numpy()
 gradient_image = (gradient_image - np.min(gradient_image))/(np.max(gradient_image)-np.min(gradient_image))
 gradient_image = gradient_image.transpose(0,2,3,1)
 fig = plot(gradient_image[0:100])
-plt.savefig('visualization/gradient_image.png', bbox_inches = 'tight')
+plt.savefig('visualization/gradient_image_cifar.png', bbox_inches = 'tight')
 plt.close(fig)
 
 #Calculating loss based on the alternative classes instead of the real classes"
@@ -99,7 +99,7 @@ samples /= 2.0
 samples = samples.transpose(0,2,3,1)
 
 fig = plot(samples[0:100])
-plt.savefig('visualization/jittered_images.png', bbox_inches = 'tight')
+plt.savefig('visualization/jittered_images_cifar.png', bbox_inches = 'tight')
 plt.close(fig)
 
 
@@ -139,7 +139,7 @@ samples /= 2.0
 samples = samples.transpose(0,2,3,1)
 
 fig = plot(samples)
-plt.savefig('visualization/max_class.png', bbox_inches='tight')
+plt.savefig('visualization/max_class.png_cifar', bbox_inches='tight')
 plt.close(fig)
 
 
@@ -178,6 +178,6 @@ for j in range(1,9):
     samples = samples.transpose(0,2,3,1)
                     
     fig = plot(samples[0:100])
-    plt.savefig('visualization/max_features_{}.png'.format(j), bbox_inches='tight')
+    plt.savefig('visualization/max_features_{}_cifar.png'.format(j), bbox_inches='tight')
     plt.close(fig)
 
