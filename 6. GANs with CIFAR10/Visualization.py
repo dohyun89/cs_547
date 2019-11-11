@@ -14,6 +14,8 @@ import time
 import numpy as np
 
 
+'''Loading Data and Model'''
+
 batch_size = 128
 
 transform_test = transforms.Compose([
@@ -99,4 +101,83 @@ samples = samples.transpose(0,2,3,1)
 fig = plot(samples[0:100])
 plt.savefig('visualization/jittered_images.png', bbox_inches = 'tight')
 plt.close(fig)
+
+
+
+'''Synthetic Images Maximizing Classification Output'''
+#Calculating the mean image and making a copy for each clss.
+X = X_batch.mean(dim = 0)
+X = X.repeat(10, 1, 1, 1)
+
+Y = torch.arange(10).type(torch.int64)
+Y = Variable(Y).to(device)
+
+
+#Synthetic images maximizing class output for discriminator
+lr = 0.1
+weight_decay = 0.001
+
+for i in range(200):
+    _, output = model(X)
+
+    loss = -output[torch.arange(10).type(torch.int64),torch.arange(10).type(torch.int64)]
+    gradients = torch.autograd.grad(outputs = loss, inputs = X,
+                                    grad_outputs = torch.ones(loss.size()).to(device),
+                                    create_graph = True, retain_graph = False, only_inputs = True)[0]
+
+    prediction = output.data.max(1)[1]
+    accuracy = ( float(prediction.eq(Y.data).sum() )/ float(10.0)) *100.0
+    print("Iteration: {} | Accuracy: {} | Loss: {} ".format(i,accuracy, -loss))
+
+    X = X - lr*gradients.data - weight_decay*X.data*torch.abs(X.data)
+    X[X>1.0] = 1.0
+    X[X<-1.0] =-1.0
+
+samples = X.data.cpu().numpy()
+samples += 1.0
+samples /= 2.0
+samples = samples.transpose(0,2,3,1)
+
+fig = plot(samples)
+plt.savefig('visualization/max_class.png', bbox_inches='tight')
+plt.close(fig)
+
+
+'''Synthetic Features Maximizing Features at Various Layers '''
+X = X_batch.mean(dim=0)
+X = X.repeat(batch_size,1,1,1)
+
+Y = torch.arange(batch_size).type(torch.int64)
+Y = Variable(Y).to(device)
+
+lr = 0.1
+weight_decay = 0.001
+for j in range(1,9):
+    print("feature:", j)
+    
+    for i in range(200):
+        output = model(X, extract_features = j)
+
+        loss = -output[torch.arange(batch_size).type(torch.int64),torch.arange(batch_size).type(torch.int64)]
+        gradients = torch.autograd.grad(outputs=loss, inputs=X,
+                                grad_outputs=torch.ones(loss.size()).to(device),
+                                create_graph=True, retain_graph=False, only_inputs=True)[0]
+
+        prediction = output.data.max(1)[1] # first column has actual prob.
+        accuracy = ( float( prediction.eq(Y.data).sum() ) /float(batch_size))*100.0
+        print("Iteration: {} | Accuracy: {} | Loss: {} ".format(i,accuracy, -loss))
+
+        X = X - lr*gradients.data - weight_decay*X.data*torch.abs(X.data)
+        X[X>1.0] = 1.0
+        X[X<-1.0] = -1.0
+
+    ## save new images
+    samples = X.data.cpu().numpy()
+    samples += 1.0
+    samples /= 2.0
+    samples = samples.transpose(0,2,3,1)
+                    
+    fig = plot(samples[0:100])
+    plt.savefig('visualization/max_features_{}.png'.format(j), bbox_inches='tight')
+    plt.close(fig)
 

@@ -41,36 +41,69 @@ class discriminator(nn.Module):
         self.fc1 = nn.Linear(in_features = 196, out_features = 1)
         self.fc10 = nn.Linear(in_features = 196, out_features = 10)
 
-    def forward(self,x):
+    def forward(self,x, extract_features = 0):
         x = self.conv1(x)
+        if(extract_features==1):
+            h = F.max_pool2d(x,32,32)
+            h = h.view(-1, 196)
+            return h        
         x = self.lnorm1(x)
         x = self.leaky1(x)
 
         x = self.conv2(x)
+        if(extract_features==2):
+            h = F.max_pool2d(x,16,16)
+            h = h.view(-1, 196)
+            return h        
         x = self.lnorm2(x)
         x = self.leaky2(x)
 
         x = self.conv3(x)
+        if(extract_features==3):
+            h = F.max_pool2d(x,16,16)
+            h = h.view(-1, 196)
+            return h        
         x = self.lnorm3(x)
         x = self.leaky3(x)
 
         x = self.conv4(x)
+        if(extract_features==4):
+            h = F.max_pool2d(x,8,8)
+            h = h.view(-1, 196)
+            return h        
         x = self.lnorm4(x)
         x = self.leaky4(x)
 
         x = self.conv5(x)
+        if(extract_features==5):
+            h = F.max_pool2d(x,8,8)
+            h = h.view(-1, 196)
+            return h        
         x = self.lnorm5(x)
         x = self.leaky5(x)
 
         x = self.conv6(x)
+        if(extract_features==6):
+            h = F.max_pool2d(x,8,8)
+            h = h.view(-1, 196)
+            return h        
         x = self.lnorm6(x)
         x = self.leaky6(x)
 
         x = self.conv7(x)
+        if(extract_features==7):
+            h = F.max_pool2d(x,8,8)
+            h = h.view(-1, 196)
+            return h        
         x = self.lnorm7(x)
         x = self.leaky7(x)
 
         x = self.conv8(x)
+        if(extract_features==8):
+            h = F.max_pool2d(x,4,4)
+            h = h.view(-1, 196)
+            return h
+
         x = self.lnorm8(x)
         x = self.leaky8(x)
         x = self.pool(x)
@@ -80,5 +113,3 @@ class discriminator(nn.Module):
         out_10 = self.fc10(x)
 
         return out_1, out_10
-
-
