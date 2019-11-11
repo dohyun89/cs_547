@@ -139,7 +139,7 @@ samples /= 2.0
 samples = samples.transpose(0,2,3,1)
 
 fig = plot(samples)
-plt.savefig('visualization/max_class.png_cifar', bbox_inches='tight')
+plt.savefig('visualization/max_class_cifar.png', bbox_inches='tight')
 plt.close(fig)
 
 
