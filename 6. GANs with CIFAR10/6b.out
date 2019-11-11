@@ -1,0 +1,19 @@
+----------------------------------------
+Begin Torque Prologue on nid25336
+at Sat Nov  9 12:45:49 CST 2019
+Job Id:			10608701.bw
+Username:		tra207
+Group:			TRAIN_bayw
+Job name:		6b
+Requested resources:	nodes=01:ppn=16:xk,walltime=48:00:00,neednodes=01:ppn=16:xk
+Queue:			normal
+Account:		bayw
+End Torque Prologue:  0.106 elapsed
+----------------------------------------
+
+
+
+
+Files already downloaded and verified
+Application 82162855 exit codes: 1
+Application 82162855 resources: utime ~7s, stime ~22s, Rss ~1211828, inblocks ~1545170, outblocks ~984
